@@ -38,7 +38,7 @@ namespace log4net.JsonLayout.Tests
 					TargetIndex = "TargetIndex",
 					LoggerName = "LoggerName",
 					Facility = "Facility",
-					TimeStamp = new DateTime(2020, 12, 8, 18, 32, 0),
+					TimeStamp = new DateTime(2020, 12, 8, 18, 32, 0).ToUniversalTime(),
 					Message = "Message",
 					MessageObject = new { Id = 1, Name = "Alper" },
 					Exception = new { Message = "Hata", StackTrace = "StackTrace" },
