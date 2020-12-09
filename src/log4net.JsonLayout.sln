@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "log4net.JsonLayout", "log4net.JsonLayout\log4net.JsonLayout.csproj", "{77EE07DB-2BB9-40EF-B771-CE4207C617BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "log4net.JsonLayout.Tests", "log4net.JsonLayout.Tests\log4net.JsonLayout.Tests.csproj", "{27AC2934-73FF-4022-8D0F-62E11DE2E0E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{892D0847-CF25-4F2B-ABC6-C96F749644C8}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77EE07DB-2BB9-40EF-B771-CE4207C617BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77EE07DB-2BB9-40EF-B771-CE4207C617BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77EE07DB-2BB9-40EF-B771-CE4207C617BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77EE07DB-2BB9-40EF-B771-CE4207C617BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27AC2934-73FF-4022-8D0F-62E11DE2E0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27AC2934-73FF-4022-8D0F-62E11DE2E0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27AC2934-73FF-4022-8D0F-62E11DE2E0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27AC2934-73FF-4022-8D0F-62E11DE2E0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8A8541F-6D4C-4CAE-853A-C42E748B592B}
+	EndGlobalSection
+EndGlobal

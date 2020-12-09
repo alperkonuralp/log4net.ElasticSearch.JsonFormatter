@@ -1,2 +1,3 @@
-# log4net.ElasticSearch.JsonFormatter
-log4net.ElasticSearch.JsonFormatter
+# log4net.JsonLayout
+
+log4net.JsonLayout
