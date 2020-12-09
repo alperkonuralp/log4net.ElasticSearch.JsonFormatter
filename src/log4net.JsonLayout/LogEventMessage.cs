@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace log4net.JsonLayout
@@ -9,7 +8,7 @@ namespace log4net.JsonLayout
 	/// class members so that we can stick with the build in serializer and not take a dependency on another lib. ES
 	/// exepects fields to start with lowercase letters.
 	/// </summary>
-	public partial class LogEventMessage : Dictionary<string, object>
+	public partial class LogEventMessage : JsonDictionary
 	{
 		private const string FacilityKey = "facility";
 		private const string TargetIndexKey = "target_index";
@@ -35,7 +34,7 @@ namespace log4net.JsonLayout
 
 		private readonly bool _sentTimeStampAsString;
 
-		public LogEventMessage()
+		public LogEventMessage() : base()
 		{
 		}
 
@@ -95,9 +94,9 @@ namespace log4net.JsonLayout
 			set { StoreValue(MessageObjectKey, value); }
 		}
 
-		public object Exception
+		public JsonSerializableException Exception
 		{
-			get { return PullStringValue(ExceptionKey); }
+			get { return PullExceptionValue(ExceptionKey); }
 			set { StoreValue(ExceptionKey, value); }
 		}
 
@@ -189,25 +188,6 @@ namespace log4net.JsonLayout
 		{
 			get { return PullStringValue(ShortMessageKey); }
 			set { StoreValue(ShortMessageKey, value); }
-		}
-
-		private string PullStringValue(String key)
-		{
-			return ContainsKey(key) ? this[key].ToString() : string.Empty;
-		}
-
-		private void StoreValue(string key, object value)
-		{
-			if (!ContainsKey(key))
-				Add(key, value);
-			else
-				this[key] = value;
-		}
-
-		internal void AddRange(IEnumerable<KeyValuePair<string, string>> enumerable)
-		{
-			foreach (var p in enumerable)
-				this.Add(p.Key, p.Value);
 		}
 	}
 }

@@ -26,9 +26,8 @@ namespace log4net.JsonLayout
 		public JsonLayout()
 		{
 			IncludeLocationInformation = false;
-			LogStackTraceFromMessage = true;
 			IgnoresException = false;
-			SendTimeStampAsString = true;
+			SendTimeStampAsString = false;
 		}
 
 		/// <summary>
@@ -68,11 +67,6 @@ namespace log4net.JsonLayout
 		/// The conversion pattern to use for the message body
 		/// </summary>
 		public string ConversionPattern { get; set; }
-
-		/// <summary>
-		/// If should append the stack trace to the message if the message is an exception
-		/// </summary>
-		public bool LogStackTraceFromMessage { get; set; }
 
 		/// <summary>
 		/// Specifies wehter location inormation should be included in the message
@@ -131,12 +125,20 @@ namespace log4net.JsonLayout
 
 		private void AddLoggingEventToMessage(LoggingEvent loggingEvent, LogEventMessage logEventMessage)
 		{
+			if (loggingEvent.MessageObject != null && !(loggingEvent.MessageObject is string))
+			{
+				logEventMessage.MessageObject = loggingEvent.MessageObject;
+			}
+
+			logEventMessage.Exception = JsonSerializableException.Create(loggingEvent.ExceptionObject);
+
 			//If conversion pattern is specified then defer to PatterLayout for building the message body
 			if (!string.IsNullOrWhiteSpace(ConversionPattern))
 			{
 				var message = GetValueFromPattern(loggingEvent, ConversionPattern);
 				logEventMessage.Message = message;
 				logEventMessage.ShortMessage = message.TruncateMessage(SHORT_MESSAGE_LENGTH);
+
 			}
 			else //Otherwise do our custom message builder stuff
 			{
@@ -158,16 +160,13 @@ namespace log4net.JsonLayout
 						{
 						}
 
-						logEventMessage.Message = !string.IsNullOrEmpty(logEventMessage.Message) ? logEventMessage.Message : loggingEvent.RenderedMessage;
-						logEventMessage.ShortMessage = !string.IsNullOrEmpty(logEventMessage.ShortMessage) ? logEventMessage.ShortMessage : logEventMessage.Message.TruncateMessage(SHORT_MESSAGE_LENGTH);
-
+						FillMessagesIfEmpties(logEventMessage, loggingEvent.RenderedMessage);
 						return;
 					}
 					logEventMessage.Message = SystemInfo.NullText;
 					logEventMessage.ShortMessage = SystemInfo.NullText;
 				}
-
-				if (messageObject is string || messageObject is SystemStringFormat)
+				else if (messageObject is string || messageObject is SystemStringFormat)
 				{
 					var fullMessage = messageObject.ToString();
 					logEventMessage.Message = fullMessage;
@@ -182,13 +181,20 @@ namespace log4net.JsonLayout
 					logEventMessage.MessageObject = messageObject;
 				}
 
-				logEventMessage.Message = !string.IsNullOrEmpty(logEventMessage.Message) ? logEventMessage.Message : messageObject?.ToString();
-				logEventMessage.ShortMessage = !string.IsNullOrEmpty(logEventMessage.ShortMessage) ? logEventMessage.ShortMessage : logEventMessage.Message.TruncateMessage(SHORT_MESSAGE_LENGTH);
-			}
 
-			if (LogStackTraceFromMessage && loggingEvent.ExceptionObject != null)
+				FillMessagesIfEmpties(logEventMessage, messageObject?.ToString());
+			}
+		}
+
+		private static void FillMessagesIfEmpties(LogEventMessage logEventMessage, string msg)
+		{
+			if (string.IsNullOrEmpty(logEventMessage.Message))
 			{
-				logEventMessage.Message = string.Format("{0} - {1}.", logEventMessage.Message, loggingEvent.GetExceptionString());
+				logEventMessage.Message = msg;
+			}
+			if (string.IsNullOrEmpty(logEventMessage.ShortMessage))
+			{
+				logEventMessage.ShortMessage = logEventMessage.Message.TruncateMessage(SHORT_MESSAGE_LENGTH);
 			}
 		}
 

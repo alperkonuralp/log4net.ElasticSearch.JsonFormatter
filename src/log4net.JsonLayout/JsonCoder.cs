@@ -3,6 +3,7 @@ using log4net.Core;
 using log4net.Layout;
 using log4net.Util;
 using MessagePack;
+using MessagePack.Formatters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,4 +25,5 @@ namespace log4net.JsonLayout
 			return MessagePackSerializer.Deserialize<T>(binary, MessagePackSerializer.Typeless.DefaultOptions, cancellationToken);
 		}
 	}
+
 }

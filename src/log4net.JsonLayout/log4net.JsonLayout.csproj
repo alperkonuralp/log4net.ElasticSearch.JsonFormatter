@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Alper Konuralp</Authors>
+    <PackageProjectUrl>https://github.com/alperkonuralp/log4net.JsonLayout</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/alperkonuralp/log4net.JsonLayout</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>log4net, log4net.JsonLayout</PackageTags>
+    <Description>JsonLayout for log4net appenders.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +21,13 @@
     <PackageReference Include="MessagePack" Version="2.2.60" />
     <PackageReference Include="MessagePack.Annotations" Version="2.2.60" />
     <PackageReference Include="MessagePackAnalyzer" Version="2.2.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
