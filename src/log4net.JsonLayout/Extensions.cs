@@ -9,7 +9,7 @@ namespace log4net.JsonLayout
 {
 	public static class Extensions
 	{
-		private static HashSet<Type> _numericTypes = new HashSet<Type>
+		private static readonly HashSet<Type> _numericTypes = new HashSet<Type>
 				{
 						typeof(decimal),
 						typeof(double),
@@ -26,13 +26,6 @@ namespace log4net.JsonLayout
 		{
 			return _numericTypes.Contains(type);
 		}
-
-		//public static IDictionary<string, object> ToDictiponary(this LogEventMessage message)
-		//{
-		//	return new Dictionary<string, object>(message.Properties)
-		//	{
-		//	};
-		//}
 
 		public delegate string NameConverterDelegate(string name);
 
@@ -87,7 +80,7 @@ namespace log4net.JsonLayout
 
 		internal static string ToStringOrNull(this object self)
 		{
-			return self != null ? self.ToString() : null;
+			return self?.ToString();
 		}
 
 		internal static bool IsNullOrEmpty(this string self)

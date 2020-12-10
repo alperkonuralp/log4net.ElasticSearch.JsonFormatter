@@ -7,7 +7,7 @@ namespace log4net.JsonLayout
 	{
 		protected string PullStringValue(String key)
 		{
-			return ContainsKey(key) ? this[key].ToString() : string.Empty;
+			return ContainsKey(key) ? this[key]?.ToString() : string.Empty;
 		}
 		protected int? PullInt32Value(String key)
 		{

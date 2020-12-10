@@ -1,5 +1,4 @@
-﻿using log4net.Appender;
-using log4net.Core;
+﻿using log4net.Core;
 using log4net.Layout;
 using log4net.Util;
 using System;
@@ -138,7 +137,6 @@ namespace log4net.JsonLayout
 				var message = GetValueFromPattern(loggingEvent, ConversionPattern);
 				logEventMessage.Message = message;
 				logEventMessage.ShortMessage = message.TruncateMessage(SHORT_MESSAGE_LENGTH);
-
 			}
 			else //Otherwise do our custom message builder stuff
 			{
@@ -147,10 +145,6 @@ namespace log4net.JsonLayout
 				{
 					if (!string.IsNullOrEmpty(loggingEvent.RenderedMessage))
 					{
-						//if (loggingEvent.RenderedMessage.ValidateJSON())
-						//{
-						//	AddToMessage(gelfMessage, loggingEvent.RenderedMessage.ToJson().ToDictionary());
-						//}
 						try
 						{
 							var dic = JsonCoder.Decode<Dictionary<string, object>>(loggingEvent.RenderedMessage);
@@ -180,7 +174,6 @@ namespace log4net.JsonLayout
 				{
 					logEventMessage.MessageObject = messageObject;
 				}
-
 
 				FillMessagesIfEmpties(logEventMessage, messageObject?.ToString());
 			}
@@ -292,46 +285,5 @@ namespace log4net.JsonLayout
 				return sb.ToString();
 			}
 		}
-
-		private static string GetSyslogSeverity(Level level)
-		{
-			if (level == log4net.Core.Level.Alert)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Alert);
-
-			if (level == log4net.Core.Level.Critical || level == log4net.Core.Level.Fatal)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Critical);
-
-			if (level == log4net.Core.Level.Debug)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Debug);
-
-			if (level == log4net.Core.Level.Emergency)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Emergency);
-
-			if (level == log4net.Core.Level.Error)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Error);
-
-			if (level == log4net.Core.Level.Fine
-					|| level == log4net.Core.Level.Finer
-					|| level == log4net.Core.Level.Finest
-					|| level == log4net.Core.Level.Info
-					|| level == log4net.Core.Level.Off)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Informational);
-
-			if (level == log4net.Core.Level.Notice
-					|| level == log4net.Core.Level.Verbose
-					|| level == log4net.Core.Level.Trace)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Notice);
-
-			if (level == log4net.Core.Level.Severe)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Emergency);
-
-			if (level == log4net.Core.Level.Warn)
-				return nameof(LocalSyslogAppender.SyslogSeverity.Warning);
-
-			return nameof(LocalSyslogAppender.SyslogSeverity.Debug);
-		}
-
-		private static readonly IEnumerable<string> MessageKeyValues = new[] { "FULLMESSAGE", "FULL_MESSAGE", "MESSAGE" };
-		private static readonly IEnumerable<string> ShortMessageKeyValues = new[] { "SHORTMESSAGE", "SHORT_MESSAGE", "MESSAGE" };
 	}
 }
