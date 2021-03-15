@@ -92,12 +92,11 @@ namespace log4net.JsonLayout
 			if (value == null)
 				return new Dictionary<string, object>();
 
-			var innerAdditionalFields = new Dictionary<string, object>();
 			string[] fields = !string.IsNullOrEmpty(FieldSeparator)
 					? value.Split(new[] { FieldSeparator }, StringSplitOptions.RemoveEmptyEntries)
 					: value.Split(',');
 
-			innerAdditionalFields = !string.IsNullOrEmpty(KeyValueSeparator)
+			Dictionary<string, object> innerAdditionalFields = !string.IsNullOrEmpty(KeyValueSeparator)
 									? fields
 										.Select(it => it.Split(new[] { KeyValueSeparator }, StringSplitOptions.RemoveEmptyEntries))
 										.ToDictionary(it => it[0], it => (object)it[1])
@@ -152,6 +151,7 @@ namespace log4net.JsonLayout
 						}
 						catch
 						{
+							// eğer rendered message decode edilebilir ise bunu yapıyoruz. yoksa birşey yapmayacağız.
 						}
 
 						FillMessagesIfEmpties(logEventMessage, loggingEvent.RenderedMessage);

@@ -34,11 +34,11 @@ namespace log4net.JsonLayout
 
 		private readonly bool _sentTimeStampAsString;
 
-		public LogEventMessage() : base()
+		public LogEventMessage() : this(false)
 		{
 		}
 
-		public LogEventMessage(bool sendTimeStampAsString = false)
+		public LogEventMessage(bool sendTimeStampAsString) : base()
 		{
 			_sentTimeStampAsString = sendTimeStampAsString;
 		}
